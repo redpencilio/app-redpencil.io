@@ -37,7 +37,6 @@
   :has-one `((email :via ,(s-prefix "nmo:inReplyTo")
                     :as "in-reply-to")
              (folder :via ,(s-prefix "nmo:isPartOf")
-                                   :inverse t
                                    :as "folder"))
   :has-many `((email-header :via ,(s-prefix "nmo:messageHeader")
                     :as "headers")
