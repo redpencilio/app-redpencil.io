@@ -1,41 +1,47 @@
 defmodule Dispatcher do
-  use Plug.Router
+  use Matcher
 
-  def start(_argv) do
-    port = 80
-    IO.puts "Starting Plug with Cowboy on port #{port}"
-    Plug.Adapters.Cowboy.http __MODULE__, [], port: port
-    :timer.sleep(:infinity)
+  define_accept_types [
+    json: [ "application/json", "application/vnd.api+json" ],
+    turtle: ["text/turtle", "application/n-triples"],
+    html: [ "text/html", "application/xhtml+html" ],
+    any: ["*/*"]
+  ]
+
+  @json %{ accept: %{ json: true } }
+  @turtle %{ accept: %{ turtle: true } }
+  @any %{ accept: %{ any: true } }
+  @html %{ accept: %{ html: true } }
+
+  post "/email-delivery/*path", @any do
+    forward conn, path, "http://deliver-email-service/email-delivery/"
   end
 
-  plug Plug.Logger
-  plug :match
-  plug :dispatch
-
-
-  ###############################################################
-  # master-email-domain.lisp
-  ###############################################################
-  post "/email-delivery/*path" do
-    Proxy.forward conn, path, "http://deliver-email-service/email-delivery/"
+  get "/mail-folders/*path", @any do
+    forward conn, path, "http://resource/mail-folders/"
   end
 
-  get "/mail-folders/*path" do
-    Proxy.forward conn, path, "http://resource/mail-folders/"
+  post "/emails/*path", @any do
+    forward conn, path, "http://resource/emails/"
   end
 
-  post "/emails/*path" do
-    Proxy.forward conn, path, "http://resource/emails/"
+  get "/favicon.ico", @any do
+    send_resp( conn, 404, "" )
   end
 
-  match "/*_path", @html do
-    # *_path allows a path to be supplied, but will not yield
-    # an error that we don't use the path variable.
+  get "/assets/*path", @any do
+    forward conn, path, "http://frontend/assets/"
+  end
+
+  get "/*_path", @html do
     forward conn, [], "http://frontend/index.html"
   end
 
+  #################################################################
+  # 404
+  #################################################################
 
-  match _ do
+  match "/*_", %{ last_call: true } do
     send_resp( conn, 404, "Route not found.  See config/dispatcher.ex" )
   end
 
