@@ -28,6 +28,13 @@ defmodule Dispatcher do
     Proxy.forward conn, path, "http://resource/emails/"
   end
 
+  match "/*_path", @html do
+    # *_path allows a path to be supplied, but will not yield
+    # an error that we don't use the path variable.
+    forward conn, [], "http://frontend/index.html"
+  end
+
+
   match _ do
     send_resp( conn, 404, "Route not found.  See config/dispatcher.ex" )
   end
