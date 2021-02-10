@@ -8,6 +8,14 @@ x-logging:
     max-file: "3"
 
 services:
+  frontend:
+    image: redpencil/website:0.0.3
+    volumes:
+      - ./config/frontend:/config
+    labels:
+      - "logging=true"
+    restart: always
+    logging: *default-logging
   identifier:
     image: semtech/mu-identifier:1.8.1
     links:
@@ -16,7 +24,7 @@ services:
       - "80:80"
     logging: *default-logging
   dispatcher:
-    image: semtech/mu-dispatcher:1.1.2
+    image: semtech/mu-dispatcher:2.0.0
     links:
       - resource:resource
     volumes:
@@ -33,7 +41,7 @@ services:
       - ./data/db:/data
     logging: *default-logging
   resource:
-    image: semtech/mu-cl-resources:1.18.0
+    image: semtech/mu-cl-resources:1.19.0
     volumes:
       - ./config/resources:/config
     logging: *default-logging
