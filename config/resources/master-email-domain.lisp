@@ -3,7 +3,7 @@
   :properties `((:id :string ,(s-prefix "nie:identifier")))
   :has-many `((folder :via ,(s-prefix "nie:hasPart")
                     :as "folders"))
-  :resource-base (s-url "http://data.lblod.info/id/mailboxes/")
+  :resource-base (s-url "http://semantic.works/id/mailboxes/")
   :features '(include-uri)
   :on-path "mailboxes")
 
@@ -15,7 +15,7 @@
                     :as "emails")
              (folder :via ,(s-prefix "email:hasFolder");;hack, as mu-cl-resources doesn't support superclasses yet (http://oscaf.sourceforge.net/nmo.html#nmo:MailboxDataObject)
                     :as "folders"))
-  :resource-base (s-url "http://data.lblod.info/id/mail-folders/")
+  :resource-base (s-url "http://semantic.works/id/mail-folders/")
   :features '(include-uri)
   :on-path "mail-folders")
 
@@ -33,6 +33,7 @@
                 (:content-mime-type :string ,(s-prefix "nmo:contentMimeType"))
                 (:received-date :datetime ,(s-prefix "nmo:receivedDate"))
                 (:sent-date :datetime ,(s-prefix "nmo:sentDate"))
+                (:folder :url, (s-prefix "nmo:isPartOf"))
                 (:number-of-retries :number ,(s-prefix "task:numberOfRetries")))
   :has-one `((email :via ,(s-prefix "nmo:inReplyTo")
                     :as "in-reply-to")
@@ -44,7 +45,7 @@
                     :as "attachments"))
   ;           (email :via ,(s-prefix "nmo:references");;https://tools.ietf.org/html/rfc2822#section-3.6.4
   ;                   :as "references"))
-  :resource-base (s-url "http://data.lblod.info/id/emails/")
+  :resource-base (s-url "http://semantic.works/id/emails/")
   :features '(include-uri)
   :on-path "emails")
 
@@ -55,7 +56,7 @@
   :has-one `((email :via ,(s-prefix "nmo:messageHeader")
                          :inverse t
                          :as "email"))
-  :resource-base (s-url "http://data.lblod.info/id/email-headers/")
+  :resource-base (s-url "http://semantic.works/id/email-headers/")
   :features '(include-uri)
   :on-path "email-headers")
 
