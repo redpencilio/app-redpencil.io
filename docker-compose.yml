@@ -61,7 +61,7 @@ services:
       - 8888:80
       - 9229:9229
     environment:
-      MAILBOX_URI: 'http://data.lblod.info/id/mailboxes/1'
+      MAILBOX_URI: 'http://semantic.works/id/mailboxes/1'
       SECURE_CONNECTION: "true"
       NODE_ENV: "development"
       EMAIL_PROTOCOL: "smtp"
