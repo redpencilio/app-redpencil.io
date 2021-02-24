@@ -17,10 +17,6 @@ defmodule Dispatcher do
     forward conn, path, "http://deliver-email-service/email-delivery/"
   end
 
-  get "/mail-folders/*path", @any do
-    forward conn, path, "http://resource/mail-folders/"
-  end
-
   post "/emails/*path", @any do
     forward conn, path, "http://resource/emails/"
   end
