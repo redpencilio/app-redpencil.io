@@ -3,7 +3,6 @@ defmodule Dispatcher do
 
   define_accept_types [
     json: [ "application/json", "application/vnd.api+json" ],
-    turtle: ["text/turtle", "application/n-triples"],
     html: [ "text/html", "application/xhtml+html" ],
     any: ["*/*"]
   ]
