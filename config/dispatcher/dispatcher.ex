@@ -8,7 +8,6 @@ defmodule Dispatcher do
   ]
 
   @json %{ accept: %{ json: true } }
-  @turtle %{ accept: %{ turtle: true } }
   @any %{ accept: %{ any: true } }
   @html %{ accept: %{ html: true } }
 
