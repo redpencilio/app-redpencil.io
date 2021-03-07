@@ -12,11 +12,7 @@ defmodule Dispatcher do
   @any %{ accept: %{ any: true } }
   @html %{ accept: %{ html: true } }
 
-  post "/email-delivery/*path", @any do
-    forward conn, path, "http://deliver-email-service/email-delivery/"
-  end
-
-  post "/emails/*path", @any do
+  post "/emails/*path", @json do
     forward conn, path, "http://resource/emails/"
   end
 
