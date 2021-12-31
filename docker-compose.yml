@@ -9,7 +9,7 @@ x-logging:
 
 services:
   frontend:
-    image: redpencil/frontend-redpencil.io:0.5.0
+    image: redpencil/frontend-redpencil.io:0.6.0
     volumes:
       - ./config/frontend:/config
     links:
@@ -17,7 +17,7 @@ services:
     restart: always
     logging: *default-logging
   identifier:
-    image: semtech/mu-identifier:1.8.1
+    image: semtech/mu-identifier:1.9.1
     links:
       - dispatcher:dispatcher
     restart: always
@@ -40,7 +40,7 @@ services:
     restart: always
     logging: *default-logging
   resource:
-    image: semtech/mu-cl-resources:1.19.0
+    image: semtech/mu-cl-resources:1.20.0
     volumes:
       - ./config/resources:/config
     links:
@@ -48,7 +48,7 @@ services:
     restart: always
     logging: *default-logging
   migrations:
-    image: semtech/mu-migrations-service
+    image: semtech/mu-migrations-service:0.7.0
     volumes:
       - ./config/migrations:/data/migrations
     links:
