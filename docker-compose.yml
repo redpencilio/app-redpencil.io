@@ -9,7 +9,7 @@ x-logging:
 
 services:
   frontend:
-    image: redpencil/frontend-redpencil.io:0.9.0
+    image: redpencil/frontend-redpencil.io:0.9.1
     volumes:
       - ./config/frontend:/config
     links:
@@ -55,7 +55,7 @@ services:
       - database:database
     logging: *default-logging
   deliver-email-service:
-    image: redpencil/deliver-email-service:0.1.3
+    image: redpencil/deliver-email-service:1.0.0
     environment:
       MAILBOX_URI: 'http://semantic.works/id/mailboxes/1'
     volumes:
