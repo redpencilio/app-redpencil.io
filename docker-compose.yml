@@ -9,7 +9,7 @@ x-logging:
 
 services:
   frontend:
-    image: redpencil/frontend-redpencil.io:0.12.0
+    image: redpencil/frontend-redpencil.io:0.12.1
     volumes:
       - ./config/frontend:/config
     links:
